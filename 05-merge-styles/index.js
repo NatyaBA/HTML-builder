@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs/promises');
+const fs = require('fs');
 const { readdir } = require('fs/promises');
 
 (async () => {
@@ -10,10 +10,10 @@ const { readdir } = require('fs/promises');
       const source = path.join(path.join(__dirname, 'styles'), file.name);
 
       if (file.isFile() && path.extname(source) === '.css') {
-        (createReadStream(path.join(files, file.name), 'utf-8')).pipe(createFile);
+        (fs.createReadStream(path.join(__dirname, './styles', file.name), 'utf-8')).pipe(createFile);
       }
     }
   } catch (err) {
-    console.log(`Error: ${err.message}`);
+     console.error(err);
   }
 })();
